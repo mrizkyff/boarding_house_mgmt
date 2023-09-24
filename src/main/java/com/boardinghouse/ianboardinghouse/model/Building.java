@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -17,4 +19,7 @@ public class Building {
     private String name;
     private String address;
     private int noOfRoom;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "building")
+    private List<Room> rooms = new ArrayList<>();
 }
