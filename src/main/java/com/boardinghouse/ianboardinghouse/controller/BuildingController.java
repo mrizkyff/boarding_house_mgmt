@@ -31,7 +31,7 @@ public class BuildingController {
     }
 
     @PutMapping("{id}")
-    public BuildingDto updateBuilding(@PathVariable UUID id, @RequestBody BuildingDto buildingDto){
+    public BuildingDto updateBuilding(@PathVariable UUID id, @RequestBody @Valid BuildingDto buildingDto){
         Building building = buildingService.mapToEntity(buildingDto);
         Building result = buildingService.updateBuilding(id, building);
         return buildingService.mapToDto(result);
