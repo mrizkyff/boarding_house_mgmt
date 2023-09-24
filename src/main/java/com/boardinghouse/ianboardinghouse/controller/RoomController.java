@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/room")
@@ -59,7 +58,7 @@ public class RoomController {
 
     @GetMapping("/{id}")
     public RoomDto getRoom(@PathVariable UUID id) {
-        Room room = roomService.getRoomOr404(id);
+        Room room = roomService.getRoom(id);
         Room result = roomService.updateRoom(id, room);
         return new RoomDto(
                 result.getId(),

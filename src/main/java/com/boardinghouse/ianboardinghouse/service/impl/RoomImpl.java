@@ -1,10 +1,8 @@
 package com.boardinghouse.ianboardinghouse.service.impl;
 
-import com.boardinghouse.ianboardinghouse.dto.RoomDto;
 import com.boardinghouse.ianboardinghouse.model.Room;
 import com.boardinghouse.ianboardinghouse.repository.RoomRepository;
 import com.boardinghouse.ianboardinghouse.service.RoomService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +24,7 @@ public class RoomImpl implements RoomService {
     @Override
     public Room getRoomOr404(UUID id) {
         Optional<Room> room = roomRepository.findById(id);
-        return room.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Room not found"));
+        return room.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND , "Room not found"));
     }
 
     @Override
@@ -39,9 +37,8 @@ public class RoomImpl implements RoomService {
         try {
             Room result = roomRepository.save(room);
             return getRoomOr404(result.getId());
-        }
-        catch (Exception exception){
-            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Failed to create room");
+        } catch (Exception exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY , "Failed to create room");
         }
 
     }
@@ -49,8 +46,8 @@ public class RoomImpl implements RoomService {
     @Override
     public Room updateRoom(UUID id , Room room) {
         Room roomOr404 = getRoomOr404(id);
-        try{
-            if (roomOr404 != null){
+        try {
+            if (roomOr404 != null) {
                 roomOr404.setName(room.getName());
                 roomOr404.setDescription(room.getDescription());
                 roomOr404.setBuilding(room.getBuilding());
@@ -61,40 +58,28 @@ public class RoomImpl implements RoomService {
                 roomRepository.save(room);
             }
             return getRoomOr404(id);
-        }
-        catch (Exception exception){
-            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Failed to update room");
+        } catch (Exception exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY , "Failed to update room");
         }
     }
 
     @Override
     public Boolean deleteRoom(UUID id) {
         Room result = getRoomOr404(id);
-        if (result != null){
+        if (result != null) {
             roomRepository.delete(result);
             return true;
         }
-        throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Failed to delete room");
+        throw new ResponseStatusException(HttpStatus.BAD_GATEWAY , "Failed to delete room");
     }
 
     @Override
     public List<Room> findAll() {
         List<Room> rooms = roomRepository.findAll();
-        if (!rooms.isEmpty()){
+        if (!rooms.isEmpty()) {
             return rooms;
         }
         return new ArrayList<>();
     }
 
-    ObjectMapper objectMapper = new ObjectMapper();
-
-    @Override
-    public RoomDto mapToDto(Room room) {
-        return objectMapper.convertValue(room, RoomDto.class);
-    }
-
-    @Override
-    public Room mapToEntity(RoomDto roomDto) {
-        return objectMapper.convertValue(roomDto, Room.class);
-    }
 }

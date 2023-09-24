@@ -1,6 +1,5 @@
 package com.boardinghouse.ianboardinghouse.service;
 
-import com.boardinghouse.ianboardinghouse.dto.RoomDto;
 import com.boardinghouse.ianboardinghouse.model.Room;
 
 import java.util.List;
@@ -13,6 +12,4 @@ public interface RoomService {
     Room updateRoom(UUID id, Room room);
     Boolean deleteRoom(UUID id);
     List<Room> findAll();
-    RoomDto mapToDto(Room room);
-    Room mapToEntity(RoomDto roomDto);
 }
