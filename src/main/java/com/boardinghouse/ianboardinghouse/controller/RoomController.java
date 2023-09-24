@@ -5,6 +5,7 @@ import com.boardinghouse.ianboardinghouse.model.Building;
 import com.boardinghouse.ianboardinghouse.model.Room;
 import com.boardinghouse.ianboardinghouse.service.BuildingService;
 import com.boardinghouse.ianboardinghouse.service.RoomService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class RoomController {
     BuildingService buildingService;
 
     @PostMapping("")
-    public RoomDto createRoom(@RequestBody RoomDto roomDto) {
+    public RoomDto createRoom(@RequestBody @Valid RoomDto roomDto) {
         // get building first
         Building building = buildingService.getBuildingOr404(roomDto.building_id());
         Room room = new Room();
@@ -72,7 +73,7 @@ public class RoomController {
     }
 
     @PutMapping("/{id}")
-    public RoomDto updateRoom(@PathVariable UUID id , @RequestBody RoomDto roomDto) {
+    public RoomDto updateRoom(@PathVariable UUID id , @RequestBody @Valid RoomDto roomDto) {
         // get building first
         Building building = buildingService.getBuildingOr404(roomDto.building_id());
         Room room = new Room();
