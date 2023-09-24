@@ -4,10 +4,9 @@ import com.boardinghouse.ianboardinghouse.dto.BuildingDto;
 import com.boardinghouse.ianboardinghouse.model.Building;
 import com.boardinghouse.ianboardinghouse.service.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -20,7 +19,7 @@ public class BuildingController {
     BuildingService buildingService;
 
     @PostMapping("")
-    public BuildingDto createBuilding(@RequestBody BuildingDto buildingDto){
+    public BuildingDto createBuilding(@RequestBody @Valid BuildingDto buildingDto){
         Building building = buildingService.mapToEntity(buildingDto);
         Building result = buildingService.createBuilding(building);
         return buildingService.mapToDto(result);
