@@ -8,6 +8,7 @@ import com.boardinghouse.ianboardinghouse.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -34,17 +35,41 @@ public class RoomController {
         room.setName(roomDto.name());
         room.setDescription(roomDto.description());
         Room result = roomService.createRoom(room);
-        return roomService.mapToDto(result);
+        return getRoom(result.getId());
     }
 
     @GetMapping("")
     public List<RoomDto> getAllRoom() {
-        return roomService.findAll().stream().map(building -> roomService.mapToDto(building)).collect(Collectors.toList());
+        List<Room> rooms = roomService.findAll();
+        List<RoomDto> responses = new ArrayList<>();
+        for (Room room: rooms){
+            RoomDto roomDto = new RoomDto(
+                    room.getId() ,
+                    room.getBuilding().getId() ,
+                    room.getLength() ,
+                    room.getWidth() ,
+                    room.getHeight() ,
+                    room.getPrice() ,
+                    room.getName() ,
+                    room.getDescription());
+            responses.add(roomDto);
+        }
+        return responses;
     }
 
     @GetMapping("/{id}")
     public RoomDto getRoom(@PathVariable UUID id) {
-        return roomService.mapToDto(roomService.getRoomOr404(id));
+        Room room = roomService.getRoomOr404(id);
+        Room result = roomService.updateRoom(id, room);
+        return new RoomDto(
+                result.getId(),
+                result.getBuilding().getId(),
+                result.getLength(),
+                result.getWidth(),
+                result.getHeight(),
+                result.getPrice(),
+                result.getName(),
+                result.getDescription());
     }
 
     @PutMapping("/{id}")
@@ -59,16 +84,8 @@ public class RoomController {
         room.setPrice(roomDto.price());
         room.setName(roomDto.name());
         room.setDescription(roomDto.description());
-        Room result = roomService.updateRoom(id, room);
-        return new RoomDto(
-                result.getId(),
-                result.getBuilding().getId(),
-                result.getLength(),
-                result.getWidth(),
-                result.getHeight(),
-                result.getPrice(),
-                result.getName(),
-                result.getDescription());
+        roomService.updateRoom(id , room);
+        return getRoom(id);
     }
 
     @DeleteMapping("/{id}")

@@ -16,4 +16,14 @@ public record RoomDto(UUID id,
                       Integer price,
                       String name,
                       String description) {
+    public RoomDto(UUID id , UUID building_id , Double length , Double width , Double height , Integer price , String name , String description) {
+        this.id = id;
+        this.building_id = building_id;
+        this.length = length;
+        this.width = width;
+        this.height = height;
+        this.price = price;
+        this.name = name;
+        this.description = description;
+    }
 }
