@@ -2,16 +2,15 @@ package com.boardinghouse.ianboardinghouse.model;
 
 import com.boardinghouse.ianboardinghouse.enums.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Setter
@@ -23,57 +22,49 @@ public class User {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @NotBlank(message = "Name is required")
-    @Size(max = 255, message = "Max is 255 characters")
     private String name;
 
-    @NotBlank(message = "Place Of Birth is required")
-    @Size(max = 255, message = "Max is 255 characters")
     private String place_of_birth;
 
-    @NotBlank(message = "Date of Birt is required")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime date_of_birth;
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate date_of_birth;
 
-    @NotBlank(message = "Phone is required")
-    @Column(unique = true)
+    @Column(unique = true, updatable = false)
     private String phone;
 
-    @NotBlank(message = "Email is required")
     @Email(message = "Format email not valid")
-    @Column(unique = true)
+    @Column(unique = true, updatable = false)
     private String email;
 
-    @NotBlank(message = "Address is required")
-    @Size(max = 255, message = "Max is 255 characters")
     private String address;
 
-    @NotBlank(message = "Gender is required")
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @NotBlank(message = "Marital Status is required")
+    @Enumerated(EnumType.STRING)
     private MaritalStatus marital_status;
 
-    @NotBlank(message = "Religion is required")
+    @Enumerated(EnumType.STRING)
     private Religion religion;
 
-    @NotBlank(message = "Identity Type is required")
-    private String identity_type;
+    @Enumerated(EnumType.STRING)
+    private IdentityType identity_type;
 
-    @NotBlank(message = "Identity is required")
-    private Identity identity;
+    private String identity;
 
     private Boolean status = true;
 
-    @NotBlank(message = "User Type is required")
+    @Enumerated(EnumType.STRING)
     private UserType user_type;
 
-    @Column(unique = true)
+    @Column(unique = true, updatable = false)
     private String username;
 
     private String password;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "room_id")
+    @JsonIgnore
     private Room room;
 }

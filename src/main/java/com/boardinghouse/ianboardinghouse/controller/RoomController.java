@@ -31,6 +31,7 @@ public class RoomController {
         room.setBuilding(building);
         room.setHeight(roomDto.height());
         room.setLength(roomDto.length());
+        room.setWidth(roomDto.width());
         room.setPrice(roomDto.price());
         room.setName(roomDto.name());
         room.setDescription(roomDto.description());

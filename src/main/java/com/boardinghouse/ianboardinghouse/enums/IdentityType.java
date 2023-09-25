@@ -1,6 +1,6 @@
 package com.boardinghouse.ianboardinghouse.enums;
 
-public enum Identity {
+public enum IdentityType {
     KTP,
     SIM,
     PASSPORT

@@ -28,7 +28,6 @@ public class Room {
     @JsonIgnore
     private Building building;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne(mappedBy = "room", cascade = CascadeType.ALL)
     private User user;
 }
