@@ -27,4 +27,8 @@ public class Room {
     @JoinColumn(name = "building_id")
     @JsonIgnore
     private Building building;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
