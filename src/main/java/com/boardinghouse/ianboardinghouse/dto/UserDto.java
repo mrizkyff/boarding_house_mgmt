@@ -12,9 +12,13 @@ import java.util.UUID;
 
 public record UserDto(
         UUID id,
-        @NotBlank(message = "Name is required")
+        @NotBlank(message = "First Name is required")
         @Size(max = 255, message = "Max is 255 characters")
-        String name,
+        String firstName,
+
+        @NotBlank(message = "Last Name is required")
+        @Size(max = 255, message = "Max is 255 characters")
+        String lastName,
 
         @NotBlank(message = "Place Of Birth is required")
         @Size(max = 255, message = "Max is 255 characters")
@@ -57,10 +61,7 @@ public record UserDto(
         Boolean status,
 
         @NotNull(message = "User Type is required")
-        UserType user_type,
-
-        @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Username must contain only letters and digits")
-        String username,
+        Role role,
 
         @NotBlank(message = "Password is required")
         String password,

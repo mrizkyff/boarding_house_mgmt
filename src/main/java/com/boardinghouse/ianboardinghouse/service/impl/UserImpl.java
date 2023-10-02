@@ -32,7 +32,8 @@ public class UserImpl implements UserService {
         User userOr404 = getUserOr404(id);
         return new UserDto(
                 userOr404.getId(),
-                userOr404.getName(),
+                userOr404.getFirstName(),
+                userOr404.getLastName(),
                 userOr404.getPlace_of_birth(),
                 userOr404.getDate_of_birth(),
                 userOr404.getPhone(),
@@ -44,8 +45,7 @@ public class UserImpl implements UserService {
                 userOr404.getIdentity_type(),
                 userOr404.getIdentity(),
                 userOr404.getStatus(),
-                userOr404.getUser_type(),
-                userOr404.getUsername(),
+                userOr404.getRole(),
                 userOr404.getPassword(),
                 userOr404.getRoom().getId(),
                 userOr404.getRoom()
@@ -68,7 +68,8 @@ public class UserImpl implements UserService {
         User userOr404 = getUserOr404(id);
         try {
             if (userOr404 != null) {
-                userOr404.setName(user.getName());
+                userOr404.setFirstName(user.getFirstName());
+                userOr404.setLastName(user.getLastName());
                 userOr404.setPlace_of_birth(user.getPlace_of_birth());
                 userOr404.setDate_of_birth(user.getDate_of_birth());
                 userOr404.setPhone(user.getPhone());
@@ -80,8 +81,7 @@ public class UserImpl implements UserService {
                 userOr404.setIdentity_type(user.getIdentity_type());
                 userOr404.setIdentity_type(user.getIdentity_type());
                 userOr404.setStatus(user.getStatus());
-                userOr404.setUser_type(user.getUser_type());
-                userOr404.setUsername(user.getUsername());
+                userOr404.setRole(user.getRole());
                 userOr404.setPassword(user.getPassword());
                 userRepository.save(userOr404);
             }

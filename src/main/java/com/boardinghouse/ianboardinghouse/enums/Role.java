@@ -1,6 +1,6 @@
 package com.boardinghouse.ianboardinghouse.enums;
 
-public enum UserType {
+public enum Role {
     USER,
     ADMIN
 }

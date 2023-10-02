@@ -43,7 +43,8 @@ public class UserController {
             userDtos.add(
                     new UserDto(
                             user.getId(),
-                            user.getName(),
+                            user.getFirstName(),
+                            user.getLastName(),
                             user.getPlace_of_birth(),
                             user.getDate_of_birth(),
                             user.getPhone(),
@@ -55,8 +56,7 @@ public class UserController {
                             user.getIdentity_type(),
                             user.getIdentity(),
                             user.getStatus(),
-                            user.getUser_type(),
-                            user.getUsername(),
+                            user.getRole(),
                             user.getPassword(),
                             user.getRoom().getId(),
                             user.getRoom()
