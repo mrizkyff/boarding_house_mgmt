@@ -28,6 +28,6 @@ public class Room {
     @JsonIgnore
     private Building building;
 
-    @OneToOne(mappedBy = "room", cascade = CascadeType.ALL)
-    private User user;
+//    @OneToOne(mappedBy = "room", cascade = CascadeType.ALL)
+//    private User user;
 }

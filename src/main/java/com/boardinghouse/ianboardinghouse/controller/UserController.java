@@ -27,10 +27,10 @@ public class UserController {
     @PostMapping("")
     public UserDto createUser(@RequestBody @Valid UserDto userDto){
         // get room first
-        Room room = roomService.getRoomOr404(userDto.room_id());
+//        Room room = roomService.getRoomOr404(userDto.room_id());
         User user = new User();
         BeanUtils.copyProperties(userDto, user);
-        user.setRoom(room);
+//        user.setRoom(room);
         User result = userService.createUser(user);
         return userService.getUser(result.getId());
     }
@@ -57,9 +57,7 @@ public class UserController {
                             user.getIdentity(),
                             user.getStatus(),
                             user.getRole(),
-                            user.getPassword(),
-                            user.getRoom().getId(),
-                            user.getRoom()
+                            user.getPassword()
                     )
             );
         }
@@ -74,10 +72,10 @@ public class UserController {
     @PutMapping("/{id}")
     public UserDto updateUser(@PathVariable UUID id, @RequestBody @Valid UserDto userDto){
         // get room first
-        Room room = roomService.getRoomOr404(userDto.room_id());
+//        Room room = roomService.getRoomOr404(userDto.room_id());
         User user = new User();
         BeanUtils.copyProperties(userDto, user, "id");
-        user.setRoom(room);
+//        user.setRoom(room);
         User result = userService.updateUser(id, user);
         return userService.getUser(result.getId());
     }

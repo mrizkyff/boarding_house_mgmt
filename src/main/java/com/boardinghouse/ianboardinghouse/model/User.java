@@ -70,10 +70,10 @@ public class User implements UserDetails {
 
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "room_id")
-    @JsonIgnore
-    private Room room;
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "room_id")
+//    @JsonIgnore
+//    private Room room;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

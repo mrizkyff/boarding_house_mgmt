@@ -64,10 +64,10 @@ public record UserDto(
         Role role,
 
         @NotBlank(message = "Password is required")
-        String password,
+        String password
 
-        UUID room_id,
-
-        Room room
+//        UUID room_id,
+//
+//        Room room
 ) {
 }

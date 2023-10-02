@@ -46,9 +46,7 @@ public class UserImpl implements UserService {
                 userOr404.getIdentity(),
                 userOr404.getStatus(),
                 userOr404.getRole(),
-                userOr404.getPassword(),
-                userOr404.getRoom().getId(),
-                userOr404.getRoom()
+                userOr404.getPassword()
         );
     }
 
